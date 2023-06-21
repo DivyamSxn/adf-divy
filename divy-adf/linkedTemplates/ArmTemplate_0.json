@@ -1,0 +1,1246 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "divy-adf"
+		},
+		"Blob_linked_service_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Blob_linked_service'"
+		},
+		"divy_sql_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'divy_sql'"
+		},
+		"event_based_pipe_trigger_properties_typeProperties_scope": {
+			"type": "string",
+			"defaultValue": "/subscriptions/6a3e44e4-f7e7-4c30-835f-15cec73e3f9f/resourceGroups/divy_proj/providers/Microsoft.Storage/storageAccounts/divybigstorage"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/pipeline')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Wait1",
+						"type": "Wait",
+						"dependsOn": [],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": 1
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "Divy_Pipe"
+				},
+				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Blob_linked_service')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('Blob_linked_service_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/divy_sql')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('divy_sql_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/event_based_pipe_csv1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Blob_linked_service",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "project_files/source",
+						"container": "divycontainer"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Account ID",
+						"type": "String"
+					},
+					{
+						"name": "Account Description",
+						"type": "String"
+					},
+					{
+						"name": "Account engagement",
+						"type": "String"
+					},
+					{
+						"name": "Account Hunter",
+						"type": "String"
+					},
+					{
+						"name": "Account Name",
+						"type": "String"
+					},
+					{
+						"name": "Account Phone",
+						"type": "String"
+					},
+					{
+						"name": "Account Source",
+						"type": "String"
+					},
+					{
+						"name": "Account Status",
+						"type": "String"
+					},
+					{
+						"name": "Account Type",
+						"type": "String"
+					},
+					{
+						"name": "Acquisition status",
+						"type": "String"
+					},
+					{
+						"name": "Billing Address",
+						"type": "String"
+					},
+					{
+						"name": "Billing City",
+						"type": "String"
+					},
+					{
+						"name": "Billing Country",
+						"type": "String"
+					},
+					{
+						"name": "Billing Geocode Accuracy",
+						"type": "String"
+					},
+					{
+						"name": "Billing Latitude",
+						"type": "String"
+					},
+					{
+						"name": "Billing Longitude",
+						"type": "String"
+					},
+					{
+						"name": "Billing State/Province",
+						"type": "String"
+					},
+					{
+						"name": "Billing Street",
+						"type": "String"
+					},
+					{
+						"name": "Billing Zip/Postal Code",
+						"type": "String"
+					},
+					{
+						"name": "Branch locations",
+						"type": "String"
+					},
+					{
+						"name": "Business Unit",
+						"type": "String"
+					},
+					{
+						"name": "Channel Type",
+						"type": "String"
+					},
+					{
+						"name": "Contract Type",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "Created By ID",
+						"type": "String"
+					},
+					{
+						"name": "Created Date",
+						"type": "String"
+					},
+					{
+						"name": "Data.com Key",
+						"type": "String"
+					},
+					{
+						"name": "Deal commission on sales side",
+						"type": "String"
+					},
+					{
+						"name": "Deal commission on supply side",
+						"type": "String"
+					},
+					{
+						"name": "Deleted",
+						"type": "String"
+					},
+					{
+						"name": "Email",
+						"type": "String"
+					},
+					{
+						"name": "Employees",
+						"type": "String"
+					},
+					{
+						"name": "First Deal Created Date",
+						"type": "String"
+					},
+					{
+						"name": "Has Early Settlement Fee",
+						"type": "String"
+					},
+					{
+						"name": "Has Partial Settlement Fee",
+						"type": "String"
+					},
+					{
+						"name": "Hunter Owner",
+						"type": "String"
+					},
+					{
+						"name": "Industry",
+						"type": "String"
+					},
+					{
+						"name": "Jigsaw Company ID",
+						"type": "String"
+					},
+					{
+						"name": "Last Activity",
+						"type": "String"
+					},
+					{
+						"name": "Last Activity Date",
+						"type": "String"
+					},
+					{
+						"name": "Last Modified By ID",
+						"type": "String"
+					},
+					{
+						"name": "Last Modified Date",
+						"type": "String"
+					},
+					{
+						"name": "Last Referenced Date",
+						"type": "String"
+					},
+					{
+						"name": "Last Viewed Date",
+						"type": "String"
+					},
+					{
+						"name": "Latest Source",
+						"type": "String"
+					},
+					{
+						"name": "Master Record ID",
+						"type": "String"
+					},
+					{
+						"name": "MBU BDM",
+						"type": "String"
+					},
+					{
+						"name": "Original Source Type",
+						"type": "String"
+					},
+					{
+						"name": "Owner ID",
+						"type": "String"
+					},
+					{
+						"name": "Parent Account ID",
+						"type": "String"
+					},
+					{
+						"name": "Partner Size",
+						"type": "String"
+					},
+					{
+						"name": "Partner Source",
+						"type": "String"
+					},
+					{
+						"name": "Partner's City (B2B Supply)",
+						"type": "String"
+					},
+					{
+						"name": "Photo URL",
+						"type": "String"
+					},
+					{
+						"name": "Preferred Payment Term",
+						"type": "String"
+					},
+					{
+						"name": "Record Type ID",
+						"type": "String"
+					},
+					{
+						"name": "RecordType",
+						"type": "String"
+					},
+					{
+						"name": "Referred a deal current month?",
+						"type": "String"
+					},
+					{
+						"name": "Referred a deal last month?",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Address",
+						"type": "String"
+					},
+					{
+						"name": "Shipping City",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Country",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Geocode Accuracy",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Latitude",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Longitude",
+						"type": "String"
+					},
+					{
+						"name": "Shipping State/Province",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Street",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Zip/Postal Code",
+						"type": "String"
+					},
+					{
+						"name": "SIC Description",
+						"type": "String"
+					},
+					{
+						"name": "State/Region",
+						"type": "String"
+					},
+					{
+						"name": "System Modstamp",
+						"type": "String"
+					},
+					{
+						"name": "Type of Company",
+						"type": "String"
+					},
+					{
+						"name": "Website",
+						"type": "String"
+					},
+					{
+						"name": "White Label",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Blob_linked_service')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/event_based_pipe_csv2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Blob_linked_service",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "project_files/new_dest2",
+						"container": "divycontainer"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "id",
+						"type": "String"
+					},
+					{
+						"name": "last_date",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Blob_linked_service')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/get_latest_file_csv1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Blob_linked_service",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"folderPath": "project_files/new_dest",
+						"container": "divycontainer"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "id",
+						"type": "String"
+					},
+					{
+						"name": "last_date",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Blob_linked_service')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/get_latest_file_csv2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Blob_linked_service",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"FIleName": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().FIleName",
+							"type": "Expression"
+						},
+						"folderPath": "project_files/new_dest",
+						"container": "divycontainer"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "id",
+						"type": "String"
+					},
+					{
+						"name": "last_date",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Blob_linked_service')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/get_latest_file_csv3')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Blob_linked_service",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"file": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().file",
+							"type": "Expression"
+						},
+						"folderPath": "project_files/new_dest2",
+						"container": "divycontainer"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Account ID",
+						"type": "String"
+					},
+					{
+						"name": "Account Description",
+						"type": "String"
+					},
+					{
+						"name": "Account engagement",
+						"type": "String"
+					},
+					{
+						"name": "Account Hunter",
+						"type": "String"
+					},
+					{
+						"name": "Account Name",
+						"type": "String"
+					},
+					{
+						"name": "Account Phone",
+						"type": "String"
+					},
+					{
+						"name": "Account Source",
+						"type": "String"
+					},
+					{
+						"name": "Account Status",
+						"type": "String"
+					},
+					{
+						"name": "Account Type",
+						"type": "String"
+					},
+					{
+						"name": "Acquisition status",
+						"type": "String"
+					},
+					{
+						"name": "Billing Address",
+						"type": "String"
+					},
+					{
+						"name": "Billing City",
+						"type": "String"
+					},
+					{
+						"name": "Billing Country",
+						"type": "String"
+					},
+					{
+						"name": "Billing Geocode Accuracy",
+						"type": "String"
+					},
+					{
+						"name": "Billing Latitude",
+						"type": "String"
+					},
+					{
+						"name": "Billing Longitude",
+						"type": "String"
+					},
+					{
+						"name": "Billing State/Province",
+						"type": "String"
+					},
+					{
+						"name": "Billing Street",
+						"type": "String"
+					},
+					{
+						"name": "Billing Zip/Postal Code",
+						"type": "String"
+					},
+					{
+						"name": "Branch locations",
+						"type": "String"
+					},
+					{
+						"name": "Business Unit",
+						"type": "String"
+					},
+					{
+						"name": "Channel Type",
+						"type": "String"
+					},
+					{
+						"name": "Contract Type",
+						"type": "String"
+					},
+					{
+						"name": "Country",
+						"type": "String"
+					},
+					{
+						"name": "Created By ID",
+						"type": "String"
+					},
+					{
+						"name": "Created Date",
+						"type": "String"
+					},
+					{
+						"name": "Data.com Key",
+						"type": "String"
+					},
+					{
+						"name": "Deal commission on sales side",
+						"type": "String"
+					},
+					{
+						"name": "Deal commission on supply side",
+						"type": "String"
+					},
+					{
+						"name": "Deleted",
+						"type": "String"
+					},
+					{
+						"name": "Email",
+						"type": "String"
+					},
+					{
+						"name": "Employees",
+						"type": "String"
+					},
+					{
+						"name": "First Deal Created Date",
+						"type": "String"
+					},
+					{
+						"name": "Has Early Settlement Fee",
+						"type": "String"
+					},
+					{
+						"name": "Has Partial Settlement Fee",
+						"type": "String"
+					},
+					{
+						"name": "Hunter Owner",
+						"type": "String"
+					},
+					{
+						"name": "Industry",
+						"type": "String"
+					},
+					{
+						"name": "Jigsaw Company ID",
+						"type": "String"
+					},
+					{
+						"name": "Last Activity",
+						"type": "String"
+					},
+					{
+						"name": "Last Activity Date",
+						"type": "String"
+					},
+					{
+						"name": "Last Modified By ID",
+						"type": "String"
+					},
+					{
+						"name": "Last Modified Date",
+						"type": "String"
+					},
+					{
+						"name": "Last Referenced Date",
+						"type": "String"
+					},
+					{
+						"name": "Last Viewed Date",
+						"type": "String"
+					},
+					{
+						"name": "Latest Source",
+						"type": "String"
+					},
+					{
+						"name": "Master Record ID",
+						"type": "String"
+					},
+					{
+						"name": "MBU BDM",
+						"type": "String"
+					},
+					{
+						"name": "Original Source Type",
+						"type": "String"
+					},
+					{
+						"name": "Owner ID",
+						"type": "String"
+					},
+					{
+						"name": "Parent Account ID",
+						"type": "String"
+					},
+					{
+						"name": "Partner Size",
+						"type": "String"
+					},
+					{
+						"name": "Partner Source",
+						"type": "String"
+					},
+					{
+						"name": "Partner's City (B2B Supply)",
+						"type": "String"
+					},
+					{
+						"name": "Photo URL",
+						"type": "String"
+					},
+					{
+						"name": "Preferred Payment Term",
+						"type": "String"
+					},
+					{
+						"name": "Record Type ID",
+						"type": "String"
+					},
+					{
+						"name": "RecordType",
+						"type": "String"
+					},
+					{
+						"name": "Referred a deal current month?",
+						"type": "String"
+					},
+					{
+						"name": "Referred a deal last month?",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Address",
+						"type": "String"
+					},
+					{
+						"name": "Shipping City",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Country",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Geocode Accuracy",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Latitude",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Longitude",
+						"type": "String"
+					},
+					{
+						"name": "Shipping State/Province",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Street",
+						"type": "String"
+					},
+					{
+						"name": "Shipping Zip/Postal Code",
+						"type": "String"
+					},
+					{
+						"name": "SIC Description",
+						"type": "String"
+					},
+					{
+						"name": "State/Region",
+						"type": "String"
+					},
+					{
+						"name": "System Modstamp",
+						"type": "String"
+					},
+					{
+						"name": "Type of Company",
+						"type": "String"
+					},
+					{
+						"name": "Website",
+						"type": "String"
+					},
+					{
+						"name": "White Label",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Blob_linked_service')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/event_based_pipe')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": false,
+									"wildcardFolderPath": "project_files/source",
+									"wildcardFileName": "*.csv",
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings",
+									"copyBehavior": "PreserveHierarchy"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".csv"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "event_based_pipe_csv1",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "event_based_pipe_csv2",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"folder": {
+					"name": "Divy_Pipe"
+				},
+				"annotations": [],
+				"lastPublishTime": "2023-06-21T08:07:24Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/event_based_pipe_csv1')]",
+				"[concat(variables('factoryId'), '/datasets/event_based_pipe_csv2')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/get_latest_file')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Get Metadata1",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "get_latest_file_csv1",
+								"type": "DatasetReference",
+								"parameters": {}
+							},
+							"fieldList": [
+								"childItems"
+							],
+							"storeSettings": {
+								"type": "AzureBlobStorageReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
+							}
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Get Metadata1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Get Metadata1').output.childItems",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Get Metadata2",
+									"type": "GetMetadata",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"dataset": {
+											"referenceName": "get_latest_file_csv2",
+											"type": "DatasetReference",
+											"parameters": {
+												"FIleName": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
+										},
+										"fieldList": [
+											"itemName",
+											"lastModified"
+										],
+										"storeSettings": {
+											"type": "AzureBlobStorageReadSettings",
+											"recursive": true,
+											"enablePartitionDiscovery": false
+										},
+										"formatSettings": {
+											"type": "DelimitedTextReadSettings"
+										}
+									}
+								},
+								{
+									"name": "If Condition1",
+									"type": "IfCondition",
+									"dependsOn": [
+										{
+											"activity": "Get Metadata2",
+											"dependencyConditions": [
+												"Succeeded"
+											]
+										}
+									],
+									"userProperties": [],
+									"typeProperties": {
+										"expression": {
+											"value": "@greater(\nactivity('Get Metadata2').output.lastModified , \nvariables('last_modified_date')\n)",
+											"type": "Expression"
+										},
+										"ifTrueActivities": [
+											{
+												"name": "Set variable1",
+												"type": "SetVariable",
+												"dependsOn": [],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"variableName": "last_modified_date",
+													"value": {
+														"value": "@activity('Get Metadata2').output.lastModified",
+														"type": "Expression"
+													}
+												}
+											},
+											{
+												"name": "Set variable2",
+												"type": "SetVariable",
+												"dependsOn": [
+													{
+														"activity": "Set variable1",
+														"dependencyConditions": [
+															"Succeeded"
+														]
+													}
+												],
+												"policy": {
+													"timeout": "0.12:00:00",
+													"retry": 0,
+													"retryIntervalInSeconds": 30,
+													"secureOutput": false,
+													"secureInput": false
+												},
+												"userProperties": [],
+												"typeProperties": {
+													"variableName": "FileName",
+													"value": {
+														"value": "@activity('Get Metadata2').output.itemName",
+														"type": "Expression"
+													}
+												}
+											}
+										]
+									}
+								}
+							]
+						}
+					},
+					{
+						"name": "Copy data1",
+						"type": "Copy",
+						"dependsOn": [
+							{
+								"activity": "ForEach1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "DelimitedTextSource",
+								"storeSettings": {
+									"type": "AzureBlobStorageReadSettings",
+									"recursive": true,
+									"enablePartitionDiscovery": false
+								},
+								"formatSettings": {
+									"type": "DelimitedTextReadSettings"
+								}
+							},
+							"sink": {
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobStorageWriteSettings",
+									"copyBehavior": "PreserveHierarchy"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
+								}
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "get_latest_file_csv2",
+								"type": "DatasetReference",
+								"parameters": {
+									"FIleName": {
+										"value": "@variables('FileName')",
+										"type": "Expression"
+									}
+								}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "get_latest_file_csv3",
+								"type": "DatasetReference",
+								"parameters": {
+									"file": {
+										"value": "@variables('FileName')",
+										"type": "Expression"
+									}
+								}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"variables": {
+					"last_modified_date": {
+						"type": "String",
+						"defaultValue": "1900-01-01"
+					},
+					"FileName": {
+						"type": "String",
+						"defaultValue": "sq_file.csv"
+					}
+				},
+				"folder": {
+					"name": "Divy_Pipe"
+				},
+				"annotations": [],
+				"lastPublishTime": "2023-06-21T07:07:12Z"
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/get_latest_file_csv1')]",
+				"[concat(variables('factoryId'), '/datasets/get_latest_file_csv2')]",
+				"[concat(variables('factoryId'), '/datasets/get_latest_file_csv3')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/event_based_pipe_trigger')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "event_based_pipe on blob",
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "event_based_pipe",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "BlobEventsTrigger",
+				"typeProperties": {
+					"blobPathBeginsWith": "/divycontainer/blobs/project_files/source/",
+					"blobPathEndsWith": ".csv",
+					"ignoreEmptyBlobs": true,
+					"scope": "[parameters('event_based_pipe_trigger_properties_typeProperties_scope')]",
+					"events": [
+						"Microsoft.Storage.BlobCreated"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/event_based_pipe')]"
+			]
+		}
+	]
+}

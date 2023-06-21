@@ -1,0 +1,24 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "divy-adf"
+		},
+		"Blob_linked_service_connectionString": {
+			"value": ""
+		},
+		"divy_sql_connectionString": {
+			"value": ""
+		},
+		"event_based_pipe_trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/6a3e44e4-f7e7-4c30-835f-15cec73e3f9f/resourceGroups/divy_proj/providers/Microsoft.Storage/storageAccounts/divybigstorage"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
