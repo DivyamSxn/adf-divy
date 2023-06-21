@@ -1,0 +1,9 @@
+{
+	"name": "pipeline_new",
+	"properties": {
+		"folder": {
+			"name": "Divy_Pipe"
+		},
+		"annotations": []
+	}
+}
