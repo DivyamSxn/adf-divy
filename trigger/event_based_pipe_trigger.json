@@ -3,7 +3,7 @@
 	"properties": {
 		"description": "event_based_pipe on blob",
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
