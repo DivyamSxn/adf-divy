@@ -1,0 +1,9 @@
+{
+	"name": "divy-adf",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "1f449215-f815-44f2-8fd9-9ae0a58c4a4f",
+		"tenantId": "772d6ced-43f2-4b5f-b01f-7a9ff0f940b6"
+	}
+}

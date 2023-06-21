@@ -1,0 +1,321 @@
+{
+	"name": "event_based_pipe_csv1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Blob_linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "project_files/source",
+				"container": "divycontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Account ID",
+				"type": "String"
+			},
+			{
+				"name": "Account Description",
+				"type": "String"
+			},
+			{
+				"name": "Account engagement",
+				"type": "String"
+			},
+			{
+				"name": "Account Hunter",
+				"type": "String"
+			},
+			{
+				"name": "Account Name",
+				"type": "String"
+			},
+			{
+				"name": "Account Phone",
+				"type": "String"
+			},
+			{
+				"name": "Account Source",
+				"type": "String"
+			},
+			{
+				"name": "Account Status",
+				"type": "String"
+			},
+			{
+				"name": "Account Type",
+				"type": "String"
+			},
+			{
+				"name": "Acquisition status",
+				"type": "String"
+			},
+			{
+				"name": "Billing Address",
+				"type": "String"
+			},
+			{
+				"name": "Billing City",
+				"type": "String"
+			},
+			{
+				"name": "Billing Country",
+				"type": "String"
+			},
+			{
+				"name": "Billing Geocode Accuracy",
+				"type": "String"
+			},
+			{
+				"name": "Billing Latitude",
+				"type": "String"
+			},
+			{
+				"name": "Billing Longitude",
+				"type": "String"
+			},
+			{
+				"name": "Billing State/Province",
+				"type": "String"
+			},
+			{
+				"name": "Billing Street",
+				"type": "String"
+			},
+			{
+				"name": "Billing Zip/Postal Code",
+				"type": "String"
+			},
+			{
+				"name": "Branch locations",
+				"type": "String"
+			},
+			{
+				"name": "Business Unit",
+				"type": "String"
+			},
+			{
+				"name": "Channel Type",
+				"type": "String"
+			},
+			{
+				"name": "Contract Type",
+				"type": "String"
+			},
+			{
+				"name": "Country",
+				"type": "String"
+			},
+			{
+				"name": "Created By ID",
+				"type": "String"
+			},
+			{
+				"name": "Created Date",
+				"type": "String"
+			},
+			{
+				"name": "Data.com Key",
+				"type": "String"
+			},
+			{
+				"name": "Deal commission on sales side",
+				"type": "String"
+			},
+			{
+				"name": "Deal commission on supply side",
+				"type": "String"
+			},
+			{
+				"name": "Deleted",
+				"type": "String"
+			},
+			{
+				"name": "Email",
+				"type": "String"
+			},
+			{
+				"name": "Employees",
+				"type": "String"
+			},
+			{
+				"name": "First Deal Created Date",
+				"type": "String"
+			},
+			{
+				"name": "Has Early Settlement Fee",
+				"type": "String"
+			},
+			{
+				"name": "Has Partial Settlement Fee",
+				"type": "String"
+			},
+			{
+				"name": "Hunter Owner",
+				"type": "String"
+			},
+			{
+				"name": "Industry",
+				"type": "String"
+			},
+			{
+				"name": "Jigsaw Company ID",
+				"type": "String"
+			},
+			{
+				"name": "Last Activity",
+				"type": "String"
+			},
+			{
+				"name": "Last Activity Date",
+				"type": "String"
+			},
+			{
+				"name": "Last Modified By ID",
+				"type": "String"
+			},
+			{
+				"name": "Last Modified Date",
+				"type": "String"
+			},
+			{
+				"name": "Last Referenced Date",
+				"type": "String"
+			},
+			{
+				"name": "Last Viewed Date",
+				"type": "String"
+			},
+			{
+				"name": "Latest Source",
+				"type": "String"
+			},
+			{
+				"name": "Master Record ID",
+				"type": "String"
+			},
+			{
+				"name": "MBU BDM",
+				"type": "String"
+			},
+			{
+				"name": "Original Source Type",
+				"type": "String"
+			},
+			{
+				"name": "Owner ID",
+				"type": "String"
+			},
+			{
+				"name": "Parent Account ID",
+				"type": "String"
+			},
+			{
+				"name": "Partner Size",
+				"type": "String"
+			},
+			{
+				"name": "Partner Source",
+				"type": "String"
+			},
+			{
+				"name": "Partner's City (B2B Supply)",
+				"type": "String"
+			},
+			{
+				"name": "Photo URL",
+				"type": "String"
+			},
+			{
+				"name": "Preferred Payment Term",
+				"type": "String"
+			},
+			{
+				"name": "Record Type ID",
+				"type": "String"
+			},
+			{
+				"name": "RecordType",
+				"type": "String"
+			},
+			{
+				"name": "Referred a deal current month?",
+				"type": "String"
+			},
+			{
+				"name": "Referred a deal last month?",
+				"type": "String"
+			},
+			{
+				"name": "Shipping Address",
+				"type": "String"
+			},
+			{
+				"name": "Shipping City",
+				"type": "String"
+			},
+			{
+				"name": "Shipping Country",
+				"type": "String"
+			},
+			{
+				"name": "Shipping Geocode Accuracy",
+				"type": "String"
+			},
+			{
+				"name": "Shipping Latitude",
+				"type": "String"
+			},
+			{
+				"name": "Shipping Longitude",
+				"type": "String"
+			},
+			{
+				"name": "Shipping State/Province",
+				"type": "String"
+			},
+			{
+				"name": "Shipping Street",
+				"type": "String"
+			},
+			{
+				"name": "Shipping Zip/Postal Code",
+				"type": "String"
+			},
+			{
+				"name": "SIC Description",
+				"type": "String"
+			},
+			{
+				"name": "State/Region",
+				"type": "String"
+			},
+			{
+				"name": "System Modstamp",
+				"type": "String"
+			},
+			{
+				"name": "Type of Company",
+				"type": "String"
+			},
+			{
+				"name": "Website",
+				"type": "String"
+			},
+			{
+				"name": "White Label",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
