@@ -1,0 +1,23 @@
+{
+	"name": "blob_sql_1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "divy_sql",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"table_name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"table": {
+				"value": "@dataset().table_name",
+				"type": "Expression"
+			}
+		}
+	}
+}
