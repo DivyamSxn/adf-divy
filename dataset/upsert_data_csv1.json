@@ -1,0 +1,33 @@
+{
+	"name": "upsert_data_csv1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Blob_linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "sql_file_18.csv",
+				"folderPath": "project_files/new_dest",
+				"container": "divycontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "id",
+				"type": "String"
+			},
+			{
+				"name": "last_date",
+				"type": "String"
+			}
+		]
+	}
+}

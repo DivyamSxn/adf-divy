@@ -1,0 +1,25 @@
+{
+	"name": "upsert_data_sql1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "divy_sql",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "nvarchar"
+			},
+			{
+				"name": "last_date",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "sql_file_18"
+		}
+	}
+}
