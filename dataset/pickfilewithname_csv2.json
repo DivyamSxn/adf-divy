@@ -1,0 +1,32 @@
+{
+	"name": "pickfilewithname_csv2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Blob_linked_service",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "project_files/new_dest2",
+				"container": "divycontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "id",
+				"type": "String"
+			},
+			{
+				"name": "last_date",
+				"type": "String"
+			}
+		]
+	}
+}
